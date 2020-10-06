@@ -1,7 +1,6 @@
 package repositories;
 
-import com.example.demo.models.AppUser;
-import org.apache.catalina.User;
+import com.tung.reddit.models.AppUser;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;

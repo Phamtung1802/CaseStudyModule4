@@ -6,7 +6,7 @@ $(document).ready(function() {
         let username=$('#username').val();
         let password=$('#password').val();
         let email=$('#email').val();
-        var json = {"username" : username, "password" : password, "email": email};
+        let json = {"username" : username, "password" : password, "email": email};
         console.log("running");
         $.ajax({
             headers: {
@@ -20,6 +20,9 @@ $(document).ready(function() {
             data: JSON.stringify(json),
             success : function (result){
                 alert("Success!!");
+            },
+            error: function () {
+                alert('Error!')
             }
         });
         event.preventDefault();

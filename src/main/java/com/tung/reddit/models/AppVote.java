@@ -1,15 +1,12 @@
-package com.example.demo.models;
+package com.tung.reddit.models;
 
-import com.example.demo.models.AppUser;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-
-import java.time.Instant;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,21 +15,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class AppComment {
+@Builder
+public class AppVote {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotEmpty
-    private String text;
-
-    @Column(name="img")
-    private String img;
-
+    @GeneratedValue(strategy = IDENTITY)
+    private Long voteId;
+    private AppVoteType voteType;
+    @NotNull
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "postId", referencedColumnName = "postId")
     private AppPost post;
-    private Instant createdDate;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private AppUser user;

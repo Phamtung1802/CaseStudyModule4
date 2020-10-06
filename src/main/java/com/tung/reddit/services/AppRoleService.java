@@ -1,7 +1,6 @@
-package com.example.demo.services;
+package com.tung.reddit.services;
 
-import com.example.demo.models.AppRole;
-import com.example.demo.models.AppUser;
+import com.tung.reddit.models.AppRole;
 import org.springframework.stereotype.Service;
 
 @Service

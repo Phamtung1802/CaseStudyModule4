@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.tung.reddit.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
-
-import static java.awt.font.TransformAttribute.IDENTITY;
 
 @Data
 @AllArgsConstructor

@@ -43,13 +43,29 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'mysql:mysql-connector-java'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-
-
+	testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.24.RELEASE'
+	testCompile group: 'com.github.sbrannen', name: 'spring-test-junit5', version: '1.2.0'
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
 }
 
 test {
 	useJUnitPlatform()
+
+	testLogging {
+		events "PASSED", "STARTED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
+	}
+	afterTest { desc, result ->
+		println "Testing ${desc.name} [${desc.className}]: ${result.resultType}"
+	}
+	reports {
+		html.enabled = true
+	}
+}
+repositories {
+	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }

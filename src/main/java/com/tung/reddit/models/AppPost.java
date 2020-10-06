@@ -1,11 +1,9 @@
-package com.example.demo.models;
+package com.tung.reddit.models;
 
-import com.example.demo.models.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

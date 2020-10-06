@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.tung.reddit.services;
 
-import com.example.demo.models.AppUser;
+import com.tung.reddit.models.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

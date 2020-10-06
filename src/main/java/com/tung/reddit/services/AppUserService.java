@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.tung.reddit.services;
 
-import com.example.demo.models.AppUser;
+import com.tung.reddit.models.AppUser;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,4 +10,6 @@ public interface AppUserService {
     AppUser save(AppUser user);
     public void delete(AppUser user);
 
+    AppUser findById(long l);
 }
+e

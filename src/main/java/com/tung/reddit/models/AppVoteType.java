@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.tung.reddit.models;
 
 import java.util.Arrays;
 
