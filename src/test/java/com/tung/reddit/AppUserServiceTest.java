@@ -40,10 +40,10 @@ public class AppUserServiceTest {
 //        customers.add(new AppUser());
 //        Pageable pageInfo = new PageRequest.of(0,25);
 //        Page<AppUser> customerPage = new PageImpl<AppUser>(customers, pageInfo, 1);
-//        when(appUserRepositoryImpl.findAll(pageInfo)).thenReturn(customerPage);
+//        when(appUserRepositoryTest.findAll(pageInfo)).thenReturn(customerPage);
 //
-//        Page<AppUser> actual = (Page<AppUser>) appUserServiceImpl.findAll();
-//        verify(appUserRepositoryImpl).findAll(pageInfo);
+//        Page<AppUser> actual = (Page<AppUser>) appUserRepositoryTest.findAll();
+//        verify(appUserRepositoryTest).findAll(pageInfo);
 //        assertEquals(customerPage, actual);
 //    }
 
