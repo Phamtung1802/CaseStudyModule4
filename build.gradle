@@ -47,8 +47,8 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.24.RELEASE'
-	testCompile group: 'com.github.sbrannen', name: 'spring-test-junit5', version: '1.2.0'
+	testCompile group: 'org.springframework', name: 'spring-test', version: '5.2.9.RELEASE'
+	testCompile group: 'com.github.sbrannen', name: 'spring-test-junit5', version: '1.4.0'
 	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
 }
 

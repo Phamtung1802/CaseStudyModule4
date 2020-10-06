@@ -9,7 +9,5 @@ public interface AppUserService {
     public Iterable<AppUser> findAll();
     AppUser save(AppUser user);
     public void delete(AppUser user);
-
-    AppUser findById(long l);
+    AppUser findByUserId(long l);
 }
-e

@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface AppUserRepository extends PagingAndSortingRepository<AppUser, Long> {
     public AppUser findByUsername(String username);
     public Iterable<AppUser> findAll();
+    public AppUser findByUserId(Long l);
 }
