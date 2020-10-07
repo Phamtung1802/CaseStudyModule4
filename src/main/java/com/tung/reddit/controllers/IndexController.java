@@ -1,5 +1,6 @@
 package com.tung.reddit.controllers;
 
+import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;
 import com.tung.reddit.services.AppRoleService;
 import com.tung.reddit.services.AppUserService;
@@ -11,9 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.management.relation.Role;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Controller
 public class IndexController {
@@ -35,8 +44,20 @@ public class IndexController {
         return mov;
     }
 
+//    @GetMapping(path = "/login")
+//    public ModelAndView loginRedirect() throws IOException {
+//        ModelAndView mov=new ModelAndView("/index");
+//        return mov;
+//    }
+
     @PostMapping(path = "/create",consumes = {"application/json", MediaType.APPLICATION_JSON_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUser> createUserPost(@RequestBody AppUser appUser) throws IOException {
+        Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
+        appUser.setCreated(time);
+        appUser.setEnabled(true);
+        AppRole role= new AppRole();
+        role.setId(3L);
+        appUser.setRole(role);
         AppUser savedUser = appUserServiceImpl.save(appUser);
         ResponseEntity<AppUser> response= new ResponseEntity<AppUser>(savedUser,HttpStatus.OK);
         return response;
