@@ -41,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .authorizeRequests().antMatchers("/admin**").hasRole("MODERATOR")
 //                .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .logout().logoutSuccessUrl("/").and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.csrf().disable();
     }
 
