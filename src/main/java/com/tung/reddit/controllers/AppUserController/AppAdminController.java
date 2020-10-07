@@ -19,7 +19,7 @@ public class AppAdminController {
     @Autowired
     private AppUserService appUserServiceImpl;
 
-    @GetMapping("/login")
+    @GetMapping("/hello")
     public ModelAndView index(){
         return new ModelAndView("/index");
     }

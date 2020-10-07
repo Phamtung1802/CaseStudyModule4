@@ -3,6 +3,7 @@ package com.tung.reddit.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Table(name = "app_roles")
-public class AppRole {
+public class AppRole implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -24,4 +25,8 @@ public class AppRole {
     @OneToMany(targetEntity = AppUser.class,cascade = {CascadeType.ALL})
     private List<AppUser> appUsers;
 
+    @Override
+    public String getAuthority() {
+        return this.getName();
+    }
 }
