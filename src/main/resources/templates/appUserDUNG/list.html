@@ -17,11 +17,11 @@
             <td>Delete</td>
         </tr>
         <tr>
-            <tr th:each = "user : ${appUser}">
-        <td th:text="${user.userId}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.created}"></td>
+        <tr th:each = "user : ${appUser}">
+            <td th:text="${user.userId}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.created}"></td>
         </tr>
     </table>
 </div>

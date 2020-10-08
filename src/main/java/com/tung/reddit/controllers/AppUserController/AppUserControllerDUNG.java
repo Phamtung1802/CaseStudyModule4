@@ -2,9 +2,7 @@ package com.tung.reddit.controllers.AppUserController;
 
 import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.services.AppRoleService;
 import com.tung.reddit.services.AppRoleServiceDUNG;
-import com.tung.reddit.services.AppUserService;
 import com.tung.reddit.services.AppUserServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -17,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@RequestMapping(value ="/user" )
+@RequestMapping(value ="/user1" )
 @Secured({"ROLE_USER","ROLE_PREMIUM_USER"})
 public class AppUserControllerDUNG {
 
@@ -49,6 +47,6 @@ public class AppUserControllerDUNG {
        appUser.setRole(appRole);
        appUserServiceImplDUNG.save(appUser);
        model.addAttribute("user", appUser);
-       return "redirect:/appUserDUNG/edit";
+       return "redirect:/user1/edit";
     }
 }

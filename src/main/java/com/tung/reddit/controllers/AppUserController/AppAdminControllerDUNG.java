@@ -1,16 +1,16 @@
 package com.tung.reddit.controllers.AppUserController;
 
+import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.services.AppRoleService;
-import com.tung.reddit.services.AppUserService;
+import com.tung.reddit.services.AppRoleServiceDUNG;
+import com.tung.reddit.services.AppUserServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -20,26 +20,58 @@ import org.springframework.web.servlet.ModelAndView;
 public class AppAdminControllerDUNG {
 
     @Autowired
-    private AppRoleService appRoleServiceImpl;
+    private AppRoleServiceDUNG appRoleServiceDUNGImpl;
 
     @Autowired
-    private AppUserService appUserServiceImpl;
+    private AppUserServiceDUNG appUserServiceDUNGImpl;
 
     @ModelAttribute("user")
     private AppUser getPrincipal(){
         AppUser appUser = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            appUser = appUserServiceImpl.findByUsername(((UserDetails)principal).getUsername()).orElse(null);
+            appUser = appUserServiceDUNGImpl.getUserByUserName(((UserDetails)principal).getUsername()).orElse(null);
         }
         return appUser;
     }
 
     @GetMapping("/list")
     public ModelAndView listUser() {
-        Iterable<AppUser> appUsers = appUserServiceImpl.findAll();
-        ModelAndView modelAndView = new ModelAndView("/list-user-DUNG");
+        Iterable<AppUser> appUsers = appUserServiceDUNGImpl.getAllUser();
+        ModelAndView modelAndView = new ModelAndView("/appUserDUNG/list");
         modelAndView.addObject("appUser", appUsers);
+        return modelAndView;
+    }
+
+    @GetMapping("/edit")
+    public ModelAndView show() {
+        ModelAndView modelAndView = new ModelAndView("appUserDUNG/edit");
+        modelAndView.addObject("user",getPrincipal());
+        return modelAndView;
+    }
+
+    @PostMapping("/edit")
+    public String editUser(AppUser appUser, Model model) {
+        AppRole appRole = appRoleServiceDUNGImpl.getRoleByName("ROLE_PREMIUM_USER");
+        appUser.setRole(appRole);
+        appUserServiceDUNGImpl.save(appUser);
+        model.addAttribute("user", appRole);
+        return "redirect:/admin1/app-user";
+    }
+
+    @GetMapping("/app-user")
+    public ModelAndView showListAppUser() {
+        ModelAndView modelAndView = new ModelAndView("appUserDUNG/list");
+        Iterable<AppUser> userList = appUserServiceDUNGImpl.getAllUser();
+        modelAndView.addObject("userList", userList);
+        return modelAndView;
+    }
+
+    @GetMapping("/app-user/edit/{id}")
+    public ModelAndView show(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("appUserDUNG/edit");
+        AppUser appUser = appUserServiceDUNGImpl.getUserById(id);
+        modelAndView.addObject("user", appUser);
         return modelAndView;
     }
 

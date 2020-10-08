@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(path = "/user1")
+@RequestMapping(path = "/user")
 @Secured({"ROLE_USER","ROLE_PREMIUM_USER"})
 public class AppUserController {
     @Autowired
