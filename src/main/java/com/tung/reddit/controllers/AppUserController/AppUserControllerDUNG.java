@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@RequestMapping(value ="/user1" )
+@RequestMapping(value ="/account" )
 //@Secured({"ROLE_USER","ROLE_PREMIUM_USER"})
 public class AppUserControllerDUNG {
 
@@ -37,7 +37,7 @@ public class AppUserControllerDUNG {
 
     @GetMapping("/edit")
     public ModelAndView show() {
-        ModelAndView modelAndView = new ModelAndView("appUserDUNG/edit");
+        ModelAndView modelAndView = new ModelAndView("account/edit");
         modelAndView.addObject("user", getPrincipal());
         return modelAndView;
     }
@@ -48,6 +48,6 @@ public class AppUserControllerDUNG {
        appUser.setRole(appRole);
        appUserServiceImplDUNG.save(appUser);
        model.addAttribute("user", appUser);
-       return "redirect:/appUserDUNG/list";
+       return "redirect:/account/list";
     }
 }

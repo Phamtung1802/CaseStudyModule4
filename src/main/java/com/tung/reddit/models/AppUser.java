@@ -36,5 +36,13 @@ public class AppUser {
 
     private Instant created;
 
+    public Instant getCreated() {
+        return created;
+    }
+
+    public void setCreated(Instant created) {
+        this.created = created;
+    }
+
     private boolean enabled;
 }
