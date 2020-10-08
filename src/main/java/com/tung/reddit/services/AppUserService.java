@@ -12,4 +12,6 @@ public interface AppUserService {
     AppUser save(AppUser user);
     public void delete(AppUser user);
     AppUser findByUserId(long l);
+    public AppUser findFirstByUsername(String username);
+
 }

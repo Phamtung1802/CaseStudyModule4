@@ -1,9 +1,12 @@
 package com.tung.reddit.controllers;
 
+import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;
+import com.tung.reddit.services.AppPostServiceImpl;
 import com.tung.reddit.services.AppRoleService;
 import com.tung.reddit.services.AppUserService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +36,10 @@ public class IndexController {
     @Autowired
     private AppUserService appUserServiceImpl;
 
+    @Autowired
+    private AppPostServiceImpl appPostServiceImpl;
+
+
     @GetMapping("/")
     public ModelAndView index(){
         ModelAndView mov=new ModelAndView("index");
@@ -48,6 +55,17 @@ public class IndexController {
     @GetMapping(path = "/login")
     public ModelAndView loginRedirect() throws IOException {
         ModelAndView mov=new ModelAndView("/index");
+        return mov;
+    }
+
+    @GetMapping(path = "/forum")
+    public ModelAndView ShowForum() throws IOException {
+        ModelAndView mov=new ModelAndView("Fragment :: posts");
+        Iterable<AppPost> appPosts=appPostServiceImpl.findAll();
+        for (AppPost post:appPosts){
+            System.out.println(post.getPostName());
+        }
+        mov.addObject("appPosts",appPosts);
         return mov;
     }
 

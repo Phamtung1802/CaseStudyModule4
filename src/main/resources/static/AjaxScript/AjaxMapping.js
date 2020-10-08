@@ -27,3 +27,44 @@ $(document).ready(function() {
         event.preventDefault();
     });
 });
+//---------------------------------------Create Post-------------------------------------------------------------------------------------//
+$(document).ready(function() {
+    $('#createPost').click(function()
+    {
+        event.preventDefault();
+        $.ajax({
+            headers: {
+            },
+            url : 'user/createPost',
+            type : "GET",
+            success : function (result){
+                $('#mainbody').html(result);
+            },
+            error: function () {
+                alert('Error!')
+            }
+        });
+        event.preventDefault();
+    });
+});
+//---------------------------------------Forum-------------------------------------------------------------------------------------//
+$(document).ready(function() {
+    $('#forum').click(function()
+    {
+        event.preventDefault();
+        $.ajax({
+            headers: {
+            },
+            url : '/forum',
+            type : "GET",
+            success : function (result){
+                $('#mainbody').html(result);
+            },
+            error: function () {
+                alert('Error!')
+            }
+        });
+        event.preventDefault();
+    });
+});
+

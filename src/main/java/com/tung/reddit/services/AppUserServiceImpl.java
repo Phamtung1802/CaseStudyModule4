@@ -47,6 +47,11 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
+    public AppUser findFirstByUsername(String username) {
+        return appUserRepository.findFirstByUsername(username);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<AppUser> optionalAppUser = appUserRepository.findByUsername(username);
         List<AppRole> roles = new ArrayList<>();if (optionalAppUser.isPresent()) {

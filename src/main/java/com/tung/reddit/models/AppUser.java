@@ -21,6 +21,7 @@ public class AppUser {
     private Long userId;
 
     @NotBlank(message = "Username is required")
+    @Column(unique=true)
     private String username;
 
     @NotBlank(message = "Password is required")

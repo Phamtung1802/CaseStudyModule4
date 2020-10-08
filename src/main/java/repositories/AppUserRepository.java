@@ -13,4 +13,5 @@ public interface AppUserRepository extends PagingAndSortingRepository<AppUser, L
     public Optional<AppUser> findByUsername(String username);
     public Iterable<AppUser> findAll();
     public AppUser findByUserId(Long l);
+    public AppUser findFirstByUsername(String username);
 }
