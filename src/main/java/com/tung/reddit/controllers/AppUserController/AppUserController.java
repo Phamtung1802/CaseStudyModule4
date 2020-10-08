@@ -22,4 +22,6 @@ public class AppUserController {
     public ModelAndView index(@PathVariable String id){
         return new ModelAndView("/index");
     }
+
+
 }
