@@ -43,6 +43,8 @@ public class IndexController {
     @GetMapping("/")
     public ModelAndView index(){
         ModelAndView mov=new ModelAndView("index");
+        Iterable<AppPost> appPosts=appPostServiceImpl.findAll();
+        mov.addObject("appPosts",appPosts);
         return mov;
     }
 
@@ -62,9 +64,6 @@ public class IndexController {
     public ModelAndView ShowForum() throws IOException {
         ModelAndView mov=new ModelAndView("Fragment :: posts");
         Iterable<AppPost> appPosts=appPostServiceImpl.findAll();
-        for (AppPost post:appPosts){
-            System.out.println(post.getPostName());
-        }
         mov.addObject("appPosts",appPosts);
         return mov;
     }

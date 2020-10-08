@@ -18,6 +18,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script th:src="@{/AjaxScript/AjaxMapping.js}" async defer></script>
+    <style>
+        .glowing-border{
+            box-shadow: 0 0 10px red;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
@@ -108,22 +113,49 @@
         <div class="row">
             <div class="col col-12">
                 <br>
-                <div class="card bg-light text-light border-0" style="padding: 0px;">
-                    <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;" th:text="${post.postName}"></div>
-                    <div class="card card-body bg-light text-black-50" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col col-12" style="margin: 0px; padding: 0px;">
-                                    <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
-                                    </div>
-                                    <div style="padding-left: 1rem; padding-bottom: 0.5rem;" th:text="'Posted by '+ ${post.description}">
+                    <th:block th:if="${post.user.role.id}==4">
+                        <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
+                            <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                            </div>
+                            <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                            <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                            </div>
+                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </th:block>
+                    <th:block th:if="${post.user.role.id}!=4">
+                        <div class="card bg-light text-light border-0" style="padding: 0px;">
+                            <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                            </div>
+                            <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                            <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                            </div>
+                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+<!--                    <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">-->
+<!--                        <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>-->
+<!--                    </div>-->
             </div>
         </div>
     </div>

@@ -5,7 +5,10 @@
 <body>
 <nav th:insert="Fragment.html::navbar"></nav>
 <main th:id="mainbody">
+    <th:block th:insert="Fragment.html::posts">
+
+    </th:block>
 </main>
-<script src="" async defer></script>
+<script th:src="@{/AjaxScript/AjaxMapping.js}" async defer></script>
 </body>
 </html>

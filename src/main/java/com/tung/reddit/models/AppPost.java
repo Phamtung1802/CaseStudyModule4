@@ -37,7 +37,7 @@ public class AppPost {
 
     private Integer voteCount = 0;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne()
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private AppUser user;
 
