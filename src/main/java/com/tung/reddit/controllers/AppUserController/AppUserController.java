@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/user1")
 @Secured({"ROLE_USER","ROLE_PREMIUM_USER"})
 public class AppUserController {
     @Autowired
@@ -17,11 +17,6 @@ public class AppUserController {
 
     @Autowired
     private AppUserService appUserServiceImpl;
-
-    @GetMapping("/{id}")
-    public ModelAndView index(@PathVariable String id){
-        return new ModelAndView("/index");
-    }
 
 
 }
