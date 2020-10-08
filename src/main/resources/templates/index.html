@@ -74,12 +74,12 @@
         <!------------------------------------------------------------------------------------>
         <!--------------------------------------------Logout----------------------------------->
         <li sec:authorize="${isAuthenticated()==true}" class="nav-item dropdown my-2 my-lg-0 d-none d-md-block mx-1" style="list-style-type:none; height: 38px;">
-            <a sec:authentication="name" class="nav-link dropdown-toggle btn btn-outline-dark my-2 my-sm-0 text-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 37.8px; padding: 0.4rem 1rem;">
+            <a sec:authentication="name" class="nav-link dropdown-toggle btn btn-primary my-2 my-sm-0 text-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 37.8px; padding: 0.4rem 1rem;">
 
             </a>
             <div class="dropdown-menu dropdown-menu-right my-2">
                 <form class="form-inline" method="post" action="/logout" accept-charset="UTF-8">
-                    <input class="btn btn-dark mx-2 my-1 w-100" type="submit" name="Logout" value="Logout">
+                    <input class="btn btn-primary mx-2 my-1 w-100" type="submit" name="Logout" value="Logout">
                 </form>
             </div>
         </li>
