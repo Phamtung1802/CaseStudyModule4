@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin1")
-@Secured({"ROLE_ADMIN","ROLE_USER","ROLE_PREMIUM_USER"})
+//@Secured({"ROLE_ADMIN","ROLE_USER","ROLE_PREMIUM_USER"})
 
 public class AppAdminControllerDUNG {
 
@@ -56,15 +56,7 @@ public class AppAdminControllerDUNG {
         appUser.setRole(appRole);
         appUserServiceDUNGImpl.save(appUser);
         model.addAttribute("user", appRole);
-        return "redirect:/admin1/app-user";
-    }
-
-    @GetMapping("/app-user")
-    public ModelAndView showListAppUser() {
-        ModelAndView modelAndView = new ModelAndView("appUserDUNG/list");
-        Iterable<AppUser> userList = appUserServiceDUNGImpl.getAllUser();
-        modelAndView.addObject("userList", userList);
-        return modelAndView;
+        return "redirect:/admin1/list";
     }
 
     @GetMapping("/app-user/edit/{id}")
@@ -72,6 +64,15 @@ public class AppAdminControllerDUNG {
         ModelAndView modelAndView = new ModelAndView("appUserDUNG/edit");
         AppUser appUser = appUserServiceDUNGImpl.getUserById(id);
         modelAndView.addObject("user", appUser);
+        return modelAndView;
+    }
+
+    @GetMapping("/app-user/delete/{id}")
+    public ModelAndView deleteUser(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("/appUserDUNG/list");
+        appUserServiceDUNGImpl.remove(appUserServiceDUNGImpl.getUserById(id));
+        Iterable<AppUser> users = appUserServiceDUNGImpl.getAllUser();
+        modelAndView.addObject("appUser", users);
         return modelAndView;
     }
 

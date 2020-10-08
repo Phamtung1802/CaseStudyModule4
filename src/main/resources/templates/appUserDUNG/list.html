@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <h1>AppUser List</h1>
-<div id="container">
-    <table class="table table-hover">
+<div class="container">
+    <table class="table table-hover" >
         <tr>
             <td>ID</td>
             <td>Username</td>
@@ -22,6 +23,8 @@
             <td th:text="${user.username}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.created}"></td>
+        <td><a th:href="@{/admin1/app-user/edit/__${user.userId}__}">Edit</a></td>
+        <td><a th:href="@{/admin1/app-user/delete/__${user.userId}__}">Delete</a></td>
         </tr>
     </table>
 </div>

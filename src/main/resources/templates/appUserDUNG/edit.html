@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit AppUser</title>
 </head>
 <body>
-<h1></h1>
+<h1>Edit AppUser</h1>
+<form th:action="@{/admin1/edit}" method="post" th:object="${user}">
+    <tr>
+        <td>
+            <input th:field="*{userId}" type="hidden"/>
+            <input th:field="*{username}"/>
+            <input th:field="*{password}"/>
+            <input th:field="*{email}"/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="Edit">
+        </td>
+    </tr>
+</form>
 </body>
 </html>
