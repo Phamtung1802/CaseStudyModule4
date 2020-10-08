@@ -35,13 +35,13 @@ public class IndexController {
 
     @GetMapping("/")
     public ModelAndView index(){
-        ModelAndView mov=new ModelAndView("/index");
+        ModelAndView mov=new ModelAndView("index");
         return mov;
     }
 
     @GetMapping(path = "/create")
     public ModelAndView createUser() throws IOException {
-        ModelAndView mov=new ModelAndView("/create");
+        ModelAndView mov=new ModelAndView("create");
         return mov;
     }
 

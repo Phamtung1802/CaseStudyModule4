@@ -14,7 +14,6 @@ $(document).ready(function() {
                 'Content-Type': 'application/json'
             },
             url : 'create',
-            type : 'post',
             dataType : 'json',
             type : "POST",
             data: JSON.stringify(json),

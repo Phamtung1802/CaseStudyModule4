@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 @Configuration
 @EnableJpaRepositories("repositories")
-@EnableWebMvc
 @ComponentScan()
 public class AppConfig extends WebMvcConfigurationSupport {
 
