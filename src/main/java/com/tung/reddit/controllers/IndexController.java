@@ -46,7 +46,9 @@ public class IndexController {
         return mov;
     }
 
-    @PostMapping(path = "/create",consumes = {"application/json", MediaType.APPLICATION_JSON_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/create",consumes = {"application/json",
+            MediaType.APPLICATION_JSON_VALUE},
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUser> createUserPost(@RequestBody AppUser appUser) throws IOException {
         Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
         appUser.setCreated(time);
