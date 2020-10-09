@@ -14,15 +14,22 @@
     <tr>
         <td>
             <input th:field="*{userId}" type="hidden"/>
-            <input th:field="*{username}"/>
-            <input th:field="*{email}"/>
         </td>
     </tr>
+        <tr>
+            <td>
+                <input th:field="*{username}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input th:field="*{email}"/>
+            </td>
+        </tr>
     <tr>
         <td>
-            <input type="submit" value="Edit">
+            <input type="submit" value="Edit"/>
         </td>
-        <td></td>
     </tr>
     </table>
 
