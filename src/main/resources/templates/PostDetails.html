@@ -64,26 +64,24 @@
                     </div>
                 </div>
             </div>
+            <!---------------------------------------------------Comment------------------------------------------------------>
             <div class="container">
                 <div class="row">
                     <th:block th:fragment="posts" th:each="comment : ${comments}">
-                        <div class="col col-1">
+                        <div class="col col-1 my-1">
                             <img src="" alt="IMG">
                         </div>
-                        <div class="col col-11">
-                            <th:block th:if="${post.user.role.id}==4">
-                                <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
-                                    <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
-                                        <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                        <div class="col col-11 my-1">
+                            <th:block th:if="${comment.user.role.id}==4">
+                                <div class="card bg-light text-light border-0" style="padding: 0px;">
+                                    <div class="card card-title bg-warning text-dark " style="padding: 0.5rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                        <a style="color:white;" th:text="'Posted by '+ ${comment.user.username}+' on '+ ${comment.createdDate}" th:href="${post.url}"></a>
                                     </div>
                                     <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col col-12" style="margin: 0px; padding: 0px;">
-                                                    <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
-                                                    </div>
-                                                    <div style="padding-left: 1rem; padding-bottom: 0.5rem;"  class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
-
+                                                    <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${comment.text}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,19 +89,16 @@
                                     </div>
                                 </div>
                             </th:block>
-                            <th:block th:if="${post.user.role.id}!=4">
+                            <th:block th:if="${comment.user.role.id}!=4">
                                 <div class="card bg-light text-light border-0" style="padding: 0px;">
-                                    <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
-                                        <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                    <div class="card card-title bg-dark text-dark " style="padding: 0.5rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                        <a style="color:white;" th:text="'Posted by '+ ${comment.user.username}+' on '+ ${comment.createdDate}" th:href="${post.url}"></a>
                                     </div>
                                     <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col col-12" style="margin: 0px; padding: 0px;">
-                                                    <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
-                                                    </div>
-                                                    <div style="padding-left: 1rem; padding-bottom: 0.5rem;" class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
-
+                                                    <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${comment.text}">
                                                     </div>
                                                 </div>
                                             </div>
