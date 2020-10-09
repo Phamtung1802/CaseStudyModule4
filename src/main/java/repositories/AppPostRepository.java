@@ -12,5 +12,7 @@ import java.util.Optional;
 @Component
 public interface AppPostRepository extends PagingAndSortingRepository<AppPost, Long> {
     public Iterable<AppPost> findAll();
+    public Iterable<AppPost> findAllByPostNameContains(String string);
+
     public AppPost findByPostId(Long l);
 }

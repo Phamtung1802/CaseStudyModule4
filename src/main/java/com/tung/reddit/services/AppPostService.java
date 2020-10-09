@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service;
 public interface AppPostService {
     public Iterable<AppPost> findAll();
     public AppPost save(AppPost appPost);
+    public Iterable<AppPost> findAllByPostNameContains(String string);
+
 
 }

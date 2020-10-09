@@ -1,13 +1,11 @@
 $(document).ready(function() {
     $('#createNewUser').submit(function()
     {
-        console.log("running");
         event.preventDefault();
         let username=$('#username').val();
         let password=$('#password').val();
         let email=$('#email').val();
         let json = {"username" : username, "password" : password, "email": email};
-        console.log("running");
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -67,4 +65,57 @@ $(document).ready(function() {
         event.preventDefault();
     });
 });
+//---------------------------------------create User view-------------------------------------------------------------------------------------//
+$(document).ready(function() {
+    $('#signUp').click(function()
+    {
+        event.preventDefault();
+        $.ajax({
+            headers: {
+            },
+            url : '/create',
+            type : "GET",
+            success : function (result){
+                $('#mainbody').html(result);
+            },
+            error: function () {
+                alert('Error!')
+            }
+        });
+        event.preventDefault();
+    });
+});
+//---------------------------------------create User view-------------------------------------------------------------------------------------//
+
+// $(document).ready(function() {
+    $('#search').submit(function()
+    {
+        event.preventDefault();
+        let query=$('#searchBar').val();
+        $.ajax({
+            headers: {
+                'Accept': 'text/plain',
+                'Content-Type': 'text/plain'
+            },
+            url : '/search',
+            type : "POST",
+            dataType : 'text/plain',
+            data: query,
+            success : function (result){
+                $('#mainbody').html(result);
+                console.log("success");
+                console.log(result);
+            },
+            error: function (result) {
+                $('#mainbody').html(result.responseText);
+                console.log(result.responseText);
+
+                console.log('Error!');
+            }
+        });
+        event.preventDefault();
+    });
+// });
+
+
 

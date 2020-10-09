@@ -22,4 +22,9 @@ public class AppPostServiceImpl implements AppPostService{
        return appPostRepository.save(appPost);
     }
 
+    @Override
+    public Iterable<AppPost> findAllByPostNameContains(String string) {
+        return appPostRepository.findAllByPostNameContains(string);
+    }
+
 }

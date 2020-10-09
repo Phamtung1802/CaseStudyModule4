@@ -32,7 +32,7 @@
 <body >
 <!------------------------------------------------------------------------------------------------------------------------------------>
 
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/"><i class="fa fa-reddit-alien" aria-hidden="true"></i> Reddit</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,7 +47,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/create">Sign Up</a>
+                <a class="nav-link" href="#" id="signUp">Sign Up</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,8 +66,8 @@
         </ul>
         <!--------------------------------------------Search----------------------------------->
         <li class="nav-item" style="list-style-type:none;" >
-            <form class="nav-item form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="nav-item form-inline my-2 my-lg-0" id="search">
+                <input class="form-control mr-sm-2" id="searchBar" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
             </form>
         </li>
@@ -111,8 +111,7 @@
     <th:block th:fragment="posts" th:each="post : ${appPosts}">
     <div class="container" >
         <div class="row">
-            <div class="col col-12">
-                <br>
+            <div class="col col-12 my-2">
                     <th:block th:if="${post.user.role.id}==4">
                         <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
                             <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
@@ -144,7 +143,7 @@
                                         <div class="col col-12" style="margin: 0px; padding: 0px;">
                                             <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
                                             </div>
-                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;" class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
 
                                             </div>
                                         </div>
@@ -153,9 +152,6 @@
                             </div>
                         </div>
                     </th:block>
-<!--                    <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">-->
-<!--                        <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>-->
-<!--                    </div>-->
             </div>
         </div>
     </div>
@@ -163,7 +159,6 @@
 
     <!------------------------------------------------------------------------------------------------------------------------------------>
     <div class="container" th:fragment="createPost">
-
         <div class="row">
             <div class="col col-12">
                 <br>
@@ -183,6 +178,38 @@
         </div>
     </div>
     <!------------------------------------------------------------------------------------------------------------------------------------>
+    <!------------------------------------------------------create user-------------------------------------------------------------------------->
+
+    <div class="row" style="height: 4rem;" th:fragment="createUser">
+        <div class="row w-100">
+            <div class="col col-2">&nbsp;
+
+            </div>
+            <div class="col col-8">
+                <div class="container col col-8">
+                    <form id="createNewUser" class="mt-2">
+                        <div class="form-group">
+                            <label for="username">User Name</label>
+                            <input type="text" class="form-control" id="username" placeholder="Enter User Name..">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter Password..">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">User Name</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter Email..">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col col-2">&nbsp;
+
+            </div>
+            <script th:src="@{/AjaxScript/AjaxMapping.js}" async defer></script>
+        </div>
+    </div>
 
 </main>
 

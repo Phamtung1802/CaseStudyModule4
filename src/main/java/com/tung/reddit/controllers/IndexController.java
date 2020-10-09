@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.management.relation.Role;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -50,7 +52,7 @@ public class IndexController {
 
     @GetMapping(path = "/create")
     public ModelAndView createUser() throws IOException {
-        ModelAndView mov=new ModelAndView("create");
+        ModelAndView mov=new ModelAndView("Fragment :: createUser");
         return mov;
     }
 
@@ -67,6 +69,16 @@ public class IndexController {
         mov.addObject("appPosts",appPosts);
         return mov;
     }
+
+    @PostMapping(path = "/search",consumes = "text/plain")
+    public ModelAndView search(@RequestBody String string) throws IOException {
+        ModelAndView mov=new ModelAndView("Fragment :: posts");
+        Iterable<AppPost> appPosts=appPostServiceImpl.findAllByPostNameContains(string);
+        mov.addObject("appPosts",appPosts);
+        System.out.println("post");
+        return mov;
+    }
+
 
     @PostMapping(path = "/create",consumes = {"application/json", MediaType.APPLICATION_JSON_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUser> createUserPost(@RequestBody AppUser appUser) throws IOException {
