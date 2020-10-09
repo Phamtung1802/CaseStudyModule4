@@ -9,6 +9,8 @@ public interface AppPostService {
     public Iterable<AppPost> findAll();
     public AppPost save(AppPost appPost);
     public Iterable<AppPost> findAllByPostNameContains(String string);
+    public AppPost findByPostID(long id);
+
 
 
 }

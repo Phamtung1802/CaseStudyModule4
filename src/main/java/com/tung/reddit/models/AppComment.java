@@ -26,11 +26,12 @@ public class AppComment {
     @Column(name="img")
     private String img;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne()
     @JoinColumn(name = "postId", referencedColumnName = "postId")
     private AppPost post;
     private Instant createdDate;
-    @ManyToOne(fetch = LAZY)
+
+    @ManyToOne()
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private AppUser user;
 }

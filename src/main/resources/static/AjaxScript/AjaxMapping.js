@@ -11,6 +11,7 @@ $(document).ready(function() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            filename:'create',
             url : 'create',
             dataType : 'json',
             type : "POST",
@@ -87,35 +88,34 @@ $(document).ready(function() {
 });
 //---------------------------------------create User view-------------------------------------------------------------------------------------//
 
-// $(document).ready(function() {
+$(document).ready(function() {
     $('#search').submit(function()
     {
         event.preventDefault();
         let query=$('#searchBar').val();
+        let json={
+            "postName":query
+        }
         $.ajax({
             headers: {
-                'Accept': 'text/plain',
-                'Content-Type': 'text/plain'
+                'Content-Type': 'application/json'
             },
             url : '/search',
             type : "POST",
-            dataType : 'text/plain',
-            data: query,
+            data: JSON.stringify(json),
             success : function (result){
                 $('#mainbody').html(result);
                 console.log("success");
                 console.log(result);
             },
             error: function (result) {
-                $('#mainbody').html(result.responseText);
-                console.log(result.responseText);
-
-                console.log('Error!');
+                $('#mainbody').html(result);
+                console.log("error!!!");
             }
         });
         event.preventDefault();
     });
-// });
+});
 
 
 

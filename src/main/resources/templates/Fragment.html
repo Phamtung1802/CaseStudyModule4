@@ -107,7 +107,7 @@
 </nav>
 <!------------------------------------------------------------------------------------------------------------------------------------>
 <main>
-    <!------------------------------------------------------------------------------------------------------------------------------------>
+<!----------------------------------------------Post--------------------------------------------------------------------------->
     <th:block th:fragment="posts" th:each="post : ${appPosts}">
     <div class="container" >
         <div class="row">
@@ -123,7 +123,7 @@
                                         <div class="col col-12" style="margin: 0px; padding: 0px;">
                                             <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
                                             </div>
-                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;"  class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
 
                                             </div>
                                         </div>
@@ -210,6 +210,73 @@
             <script th:src="@{/AjaxScript/AjaxMapping.js}" async defer></script>
         </div>
     </div>
+    <!----------------------------------------------Post--------------------------------------------------------------------------->
+    <th:block th:fragment="postdetails" th:object="${post}">
+        <div class="container" >
+            <div class="row">
+                <div class="col col-12 my-2">
+                    <th:block th:if="${post.user.role.id}==4">
+                        <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
+                            <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                            </div>
+                            <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                            <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                            </div>
+                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;"  class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${post.user.role.id}!=4">
+                        <div class="card bg-light text-light border-0" style="padding: 0px;">
+                            <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                            </div>
+                            <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                            <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                            </div>
+                                            <div style="padding-left: 1rem; padding-bottom: 0.5rem;" class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <!---------------------------------------------------------Create Comment----------------------------------------------------------->
+    <div class="container" th:fragment="createComment" sec:authorize="${isAuthenticated()==true}">
+        <div class="row">
+            <div class="col col-12" th:object="${post}">
+                <br>
+                <form id="createNewComment" method="post" th:action="${post.url}">
+                    <div class="form-group">
+                        <label for="postContent">Comments</label>
+                        <textarea class="form-control" th:id="'commentContent'" rows="3" style="resize:none" required></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-light" value="Submit">
+                    <script th:src="@{/AjaxScript/AjaxComment.js}" async="true" defer="true"></script>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------>
+
 
 </main>
 

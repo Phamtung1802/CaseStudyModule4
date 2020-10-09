@@ -1,28 +1,27 @@
 package com.tung.reddit.controllers;
 
+import com.tung.reddit.models.AppComment;
 import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.services.AppPostServiceImpl;
-import com.tung.reddit.services.AppRoleService;
-import com.tung.reddit.services.AppUserService;
+import com.tung.reddit.services.*;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import repositories.AppCommentRepository;
 
 import javax.management.relation.Role;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -40,6 +39,9 @@ public class IndexController {
 
     @Autowired
     private AppPostServiceImpl appPostServiceImpl;
+
+    @Autowired
+    private AppCommentService appCommentServiceImpl;
 
 
     @GetMapping("/")
@@ -70,12 +72,11 @@ public class IndexController {
         return mov;
     }
 
-    @PostMapping(path = "/search",consumes = "text/plain")
-    public ModelAndView search(@RequestBody String string) throws IOException {
+    @PostMapping(path = "/search")
+    public ModelAndView search(@RequestBody AppPost appPost) throws IOException {
         ModelAndView mov=new ModelAndView("Fragment :: posts");
-        Iterable<AppPost> appPosts=appPostServiceImpl.findAllByPostNameContains(string);
+        Iterable<AppPost> appPosts=appPostServiceImpl.findAllByPostNameContains(appPost.getPostName());
         mov.addObject("appPosts",appPosts);
-        System.out.println("post");
         return mov;
     }
 
@@ -90,7 +91,37 @@ public class IndexController {
         appUser.setRole(role);
         AppUser savedUser = appUserServiceImpl.save(appUser);
         ResponseEntity<AppUser> response= new ResponseEntity<AppUser>(savedUser,HttpStatus.OK);
+        System.out.println("created");
         return response;
     }
+    @GetMapping(path = "/post/{id}")
+    public ModelAndView search(@PathVariable long id) throws IOException {
+        ModelAndView mov=new ModelAndView("PostDetails");
+        AppPost post=appPostServiceImpl.findByPostID(id);
+        Iterable<AppComment> comments=appCommentServiceImpl.findAllByPost(post);
+        mov.addObject("post",post);
+        mov.addObject("comments",comments);
+        return mov;
+    }
+
+    @PostMapping(path = "/post/{id}")
+    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN"})
+    public ModelAndView postComment(@PathVariable long id, @RequestBody AppComment appComment, Principal principal) throws IOException {
+        ModelAndView mov=new ModelAndView("redirect:/post/"+id);
+        Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
+        AppUser appUser=appUserServiceImpl.findFirstByUsername(principal.getName());
+        AppPost post=appPostServiceImpl.findByPostID(id);
+
+        appComment.setPost(post);
+        appComment.setUser(appUser);
+        appComment.setCreatedDate(time);
+        appCommentServiceImpl.save(appComment);
+        Iterable<AppComment> comments=appCommentServiceImpl.findAllByPost(post);
+        mov.addObject("post",post);
+        mov.addObject("comments",comments);
+        return mov;
+    }
+
+
 
 }

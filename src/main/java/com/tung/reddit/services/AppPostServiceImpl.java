@@ -27,4 +27,10 @@ public class AppPostServiceImpl implements AppPostService{
         return appPostRepository.findAllByPostNameContains(string);
     }
 
+    @Override
+    public AppPost findByPostID(long id) {
+        return appPostRepository.findByPostId(id);
+    }
+
+
 }
