@@ -42,7 +42,6 @@
             <td>Username</td>
             <td>Email</td>
             <td>Date</td>
-            <td>Edit</td>
             <td>Delete</td>
         </tr>
         <tr>
@@ -51,7 +50,6 @@
             <td th:text="${user.username}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.created}"></td>
-        <td><a th:href="@{/admin1/app-user/edit/__${user.userId}__}">Edit</a></td>
         <td><a th:href="@{/admin1/app-user/delete/__${user.userId}__}">Delete</a></td>
         </tr>
     </table>
