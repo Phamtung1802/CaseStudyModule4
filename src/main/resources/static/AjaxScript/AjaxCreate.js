@@ -19,10 +19,10 @@ $(document).ready(function() {
             type : "POST",
             data: JSON.stringify(json),
             success : function (result){
-                alert("Success!!");
+                location.reload();
             },
             error: function () {
-                window.reload();
+                location.reload();
             }
         });
         event.preventDefault();
