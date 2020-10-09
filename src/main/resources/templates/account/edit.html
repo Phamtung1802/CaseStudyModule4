@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>Edit AppUser</h1>
-<form th:action="@{/admin1/edit}" method="post" th:object="${user}">
+<form th:action="@{/user1/edit}" method="post" th:object="${user}">
     <table>
     <tr>
         <td>
@@ -19,15 +19,13 @@
         </td>
     </tr>
     <tr>
-        <td></td>
         <td>
             <input type="submit" value="Edit">
         </td>
+        <td></td>
     </tr>
     </table>
-    <p>
-        <a href="/user1/password" title="doi mat khau">Doi mat khau</a>
-    </p>
+
 </form>
 </body>
 </html>
