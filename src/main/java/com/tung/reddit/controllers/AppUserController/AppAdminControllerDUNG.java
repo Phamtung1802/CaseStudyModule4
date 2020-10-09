@@ -80,7 +80,7 @@ public class AppAdminControllerDUNG {
         ModelAndView modelAndView = new ModelAndView("/account/list");
         appUserServiceDUNGImpl.remove(appUserServiceDUNGImpl.getUserById(id));
         Iterable<AppUser> users = appUserServiceDUNGImpl.getAllUser();
-        modelAndView.addObject("appUser", users);
+        modelAndView.addObject("userList", users);
         return modelAndView;
     }
 

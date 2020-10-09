@@ -37,7 +37,7 @@ public class AppUserControllerDUNG {
 
     @GetMapping("/edit")
     public String show() {
-        return "account/edit";
+        return "/account/edit";
     }
 
     @PostMapping("/edit")
