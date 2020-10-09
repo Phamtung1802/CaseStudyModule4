@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@RequestMapping(value ="/account" )
+@RequestMapping(value ="/user1" )
 //@Secured({"ROLE_USER","ROLE_PREMIUM_USER"})
 public class AppUserControllerDUNG {
 
@@ -36,18 +36,29 @@ public class AppUserControllerDUNG {
     }
 
     @GetMapping("/edit")
-    public ModelAndView show() {
-        ModelAndView modelAndView = new ModelAndView("account/edit");
-        modelAndView.addObject("user", getPrincipal());
-        return modelAndView;
+    public String show() {
+        return "account/edit";
     }
 
     @PostMapping("/edit")
-    public String editAppUser(AppUser appUser, Model model) {
-       AppRole appRole = appRoleServiceImplDUNG.getRoleByName("ROLE_PREMIUM_USER");
-       appUser.setRole(appRole);
-       appUserServiceImplDUNG.save(appUser);
-       model.addAttribute("user", appUser);
-       return "redirect:/account/list";
+   public String editUser(@ModelAttribute("user") AppUser user) {
+        appUserServiceImplDUNG.save(user);
+        return "/account/edit";
     }
+
+    @GetMapping("/password")
+    public String showPass() {
+        return "/account/password";
+    }
+
+    @PostMapping("/password")
+    public String passwordForm(@RequestParam("newPass") String newPass) {
+        AppUser appUser = getPrincipal();
+        if (appUser != null) {
+            appUser.setPassword(newPass);
+            appUserServiceImplDUNG.save(appUser);
+        }
+        return "/account/password";
+    }
+
 }

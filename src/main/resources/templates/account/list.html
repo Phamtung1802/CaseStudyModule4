@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+ >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -18,7 +21,7 @@
             <td>Delete</td>
         </tr>
         <tr>
-        <tr th:each = "user : ${appUser}">
+        <tr th:each = "user : ${userList}">
             <td th:text="${user.userId}"></td>
             <td th:text="${user.username}"></td>
             <td th:text="${user.email}"></td>

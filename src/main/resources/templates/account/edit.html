@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Edit AppUser</title>
@@ -7,6 +8,7 @@
 <body>
 <h1>Edit AppUser</h1>
 <form th:action="@{/admin1/edit}" method="post" th:object="${user}">
+    <table>
     <tr>
         <td>
             <input th:field="*{userId}" type="hidden"/>
@@ -21,6 +23,10 @@
             <input type="submit" value="Edit">
         </td>
     </tr>
+    </table>
+    <p>
+        <a href="/user1/password" title="doi mat khau">Doi mat khau</a>
+    </p>
 </form>
 </body>
 </html>

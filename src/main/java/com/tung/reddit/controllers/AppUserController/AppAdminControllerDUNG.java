@@ -41,11 +41,11 @@ public class AppAdminControllerDUNG {
         return appUser;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/app-user")
     public ModelAndView listUser() {
-        Iterable<AppUser> appUsers = appUserServiceDUNGImpl.getAllUser();
         ModelAndView modelAndView = new ModelAndView("/account/list");
-        modelAndView.addObject("appUser", appUsers);
+        Iterable<AppUser> userList = appUserServiceDUNGImpl.getAllUser();
+        modelAndView.addObject("userList", userList);
         return modelAndView;
     }
 
@@ -57,14 +57,14 @@ public class AppAdminControllerDUNG {
     }
 
     @PostMapping("/edit")
-    public String editUser(AppUser appUser, Model model) {
+    public String editUser(AppUser user, Model model) {
         Instant time= LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
-        appUser.setCreated(time);
+        user.setCreated(time);
         AppRole appRole = appRoleServiceDUNGImpl.getRoleByName("ROLE_PREMIUM_USER");
-        appUser.setRole(appRole);
-        appUserServiceDUNGImpl.save(appUser);
-        model.addAttribute("user", appRole);
-        return "redirect:/admin1/list";
+        user.setRole(appRole);
+        appUserServiceDUNGImpl.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/admin1/app-user";
     }
 
     @GetMapping("/app-user/edit/{id}")
