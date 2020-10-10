@@ -5,7 +5,12 @@ import com.tung.reddit.models.AppUser;
 import com.tung.reddit.services.AppRoleServiceDUNG;
 import com.tung.reddit.services.AppUserServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,12 +18,25 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+@Controller
+
 public class HomeControllerDUNG {
-    @Autowired
-    private AppRoleServiceDUNG appRoleServiceDUNGImpl;
 
     @Autowired
-    private AppUserServiceDUNG appUserServiceDUNGImpl;
+    private AppRoleServiceDUNG appRoleServiceImplDUNG;
+
+    @Autowired
+    private AppUserServiceDUNG appUserServiceImplDUNG;
+
+    @ModelAttribute("user")
+    private AppUser getPrincipal() {
+        AppUser appUser = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            appUser = appUserServiceImplDUNG.getUserByUserName(((UserDetails)principal).getUsername());
+        }
+        return appUser;
+    }
 
     @GetMapping("/")
     public ModelAndView  home() {
@@ -32,22 +50,28 @@ public class HomeControllerDUNG {
         return modelAndView;
     }
 
-    @GetMapping(value = "/create")
+    @GetMapping(value = "/create-account")
     public ModelAndView createUser() {
-        ModelAndView modelAndView = new ModelAndView("/create");
+        ModelAndView modelAndView = new ModelAndView("/account/create");
         modelAndView.addObject("user", new AppUser());
         return modelAndView;
     }
 
-    @PostMapping("/create")
-    public String createAppUser(AppUser appUser) {
+    @PostMapping("/create-account")
+    public ModelAndView createAppUser( @ModelAttribute("newUser") AppUser appUser) {
         Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
         appUser.setCreated(time);
         appUser.setEnabled(true);
-        AppRole appRole = appRoleServiceDUNGImpl.getRoleByName("ROLE_PREMIUM_USER");
+        AppRole appRole = appRoleServiceImplDUNG.getRoleByName("ROLE_USER");
         appUser.setRole(appRole);
-        appUserServiceDUNGImpl.save(appUser);
-        return "redirect:/";
+        appUserServiceImplDUNG.save(appUser);
+        return new ModelAndView("/account/create");
+    }
+
+    @GetMapping("/Access_Denied")
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal().getUsername());
+        return "accessDenied";
     }
 
 }

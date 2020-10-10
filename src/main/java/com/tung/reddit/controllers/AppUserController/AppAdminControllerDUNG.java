@@ -5,8 +5,6 @@ import com.tung.reddit.models.AppUser;
 import com.tung.reddit.services.AppRoleServiceDUNG;
 import com.tung.reddit.services.AppUserServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,12 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneOffset;
 
 @Controller
-@RequestMapping(value = "/admin1")
-//@Secured({"ROLE_ADMIN","ROLE_USER","ROLE_PREMIUM_USER"})
+@RequestMapping(value = "/admin")
+
 
 public class AppAdminControllerDUNG {
 
@@ -36,9 +33,30 @@ public class AppAdminControllerDUNG {
         AppUser appUser = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            appUser = appUserServiceDUNGImpl.getUserByUserName(((UserDetails)principal).getUsername()).orElse(null);
+            appUser = appUserServiceDUNGImpl.getUserByUserName(((UserDetails)principal).getUsername());
         }
         return appUser;
+    }
+
+    @GetMapping("/create")
+    public ModelAndView showCreate() {
+        ModelAndView modelAndView = new ModelAndView("/create");
+        modelAndView.addObject("user", new AppUser());
+        return modelAndView;
+
+    }
+
+    @PostMapping("/create")
+    public String createAdmin(AppUser appUser, Model model) {
+        Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
+        appUser.setCreated(time);
+        appUser.setEnabled(true);
+        AppRole appRole = appRoleServiceDUNGImpl.getRoleByName("ROLE_ADMIN");
+        appUser.setRole(appRole);
+        appUserServiceDUNGImpl.save(appUser);
+        model.addAttribute("user",appUser);
+        return "redirect:/";
+
     }
 
     @GetMapping("/app-user")
@@ -60,7 +78,7 @@ public class AppAdminControllerDUNG {
     public String editUser(AppUser user, Model model) {
         Instant time= LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
         user.setCreated(time);
-        AppRole appRole = appRoleServiceDUNGImpl.getRoleByName("ROLE_PREMIUM_USER");
+        AppRole appRole = appRoleServiceDUNGImpl.getRoleByName("ROLE_ADMIN");
         user.setRole(appRole);
         appUserServiceDUNGImpl.save(user);
         model.addAttribute("user", user);

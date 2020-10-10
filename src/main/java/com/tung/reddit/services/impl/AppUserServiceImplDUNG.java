@@ -4,6 +4,7 @@ import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;
 import com.tung.reddit.services.AppUserServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,10 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import repositories.AppUserRepositoryDUNG;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 @Service
 @Component
 public class AppUserServiceImplDUNG implements AppUserServiceDUNG, UserDetailsService {
@@ -43,23 +43,23 @@ public class AppUserServiceImplDUNG implements AppUserServiceDUNG, UserDetailsSe
     }
 
     @Override
-    public Optional<AppUser> getUserByUserName(String userName) {
+    public AppUser getUserByUserName(String userName) {
         return appUserRepositoryDUNG.findAppUserByUsername(userName);
     }
 
+
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<AppUser> optionalUser = appUserRepositoryDUNG.findAppUserByUsername(username);
-        List<AppRole> roles = new ArrayList<>();
-
-        if (optionalUser.isPresent()) {
-            AppUser appUser = optionalUser.get();
-            roles.add(appUser.getRole());
-            User user = new User(appUser.getUsername(),appUser.getPassword(),roles);
-            return user;
-        }
-        else {
-            throw new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", username));
-        }
+        AppUser appUser = appUserRepositoryDUNG.findAppUserByUsername(username);
+        if (appUser == null)
+            throw new UsernameNotFoundException(username);
+        List<AppRole> appRoles = new ArrayList<>();
+        appRoles.add(appUser.getRole());
+        User user = new User(appUser.getUsername(), appUser.getPassword(), true,true,true,true,
+                Arrays.asList((new SimpleGrantedAuthority("ROLE_USER"))));
+        return user;
     }
 }
+

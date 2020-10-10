@@ -9,5 +9,6 @@ public interface AppUserServiceDUNG {
     AppUser getUserById(Long id);
     AppUser save(AppUser user);
     void remove(AppUser user);
-    Optional <AppUser> getUserByUserName(String userName);
+     AppUser getUserByUserName(String userName);
+
 }
