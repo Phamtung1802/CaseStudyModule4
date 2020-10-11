@@ -23,8 +23,13 @@
                     <div class="col col-12 my-2">
                         <th:block th:if="${post.user.role.id}==4">
                             <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
-                                <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                <div class="card card-title bg-warning text-dark " style="padding: 0.5rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                     <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                    <span sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">
+                                        <form th:action="'/delete_post/'+${post.postId}" method="get">
+                                            <button class="btn btn-danger float-left close" value="&nbsp;">X</button>
+                                        </form>
+                                    </span>
                                 </div>
                                 <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                     <div class="container">
@@ -43,8 +48,13 @@
                         </th:block>
                         <th:block th:if="${post.user.role.id}!=4">
                             <div class="card bg-light text-light border-0" style="padding: 0px;">
-                                <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                <div class="card card-title bg-dark border-dark text-light" style="padding: 0.5rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                     <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                    <span sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">
+                                        <form th:action="'/delete_post/'+${post.postId}" method="get">
+                                            <button class="btn btn-danger float-left close" value="&nbsp;">X</button>
+                                        </form>
+                                    </span>
                                 </div>
                                 <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                     <div class="container">

@@ -140,7 +140,7 @@ public class IndexController {
     }
 
     @PostMapping(path = "/post/{id}")
-    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN"})
+    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN","ROLE_MODERATOR"})
     public ModelAndView postComment(@PathVariable long id, @RequestBody AppComment appComment, Principal principal) throws IOException {
         ModelAndView mov=new ModelAndView("redirect:/post/"+id);
         Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
@@ -155,6 +155,14 @@ public class IndexController {
         mov.addObject("comments",comments);
         return mov;
     }
+
+    @GetMapping(path = "/delete_post/{id}")
+    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN","ROLE_MODERATOR"})
+    public ModelAndView deletePost(@PathVariable long id) throws IOException {
+        ModelAndView mov=new ModelAndView("redirect:/");
+        return mov;
+    }
+
 
 
 
