@@ -80,6 +80,30 @@ public class IndexController {
         return mov;
     }
 
+    @GetMapping(path = "**/changePassword")
+    public ModelAndView changePassword() throws IOException {
+        ModelAndView mov=new ModelAndView("Fragment :: changePassword");
+        return mov;
+    }
+
+    @PatchMapping(path = "**/changePassword",consumes = {"multipart/form-data"})
+    public ModelAndView changePasswordSubmit(Principal principal,@RequestPart("oldPassword") String oldPassword,@RequestPart("newPassword") String newPassword) throws IOException {
+        ModelAndView mov= new ModelAndView("/index");
+        AppUser appUser= appUserServiceImpl.findFirstByUsername(principal.getName());
+        String password=appUser.getPassword();
+        System.out.println(oldPassword);
+        if (password.equals(oldPassword)){
+            appUser.setPassword(newPassword);
+            appUserServiceImpl.save(appUser);
+            mov.setViewName ("Fragment :: changePasswordSuccess");
+        }else {
+            mov.setViewName("Fragment :: wrongPassword");
+        }
+        return mov;
+    }
+
+
+
 
     @PostMapping(path = "/create",consumes = {"application/json", MediaType.APPLICATION_JSON_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUser> createUserPost(@RequestBody AppUser appUser) throws IOException {

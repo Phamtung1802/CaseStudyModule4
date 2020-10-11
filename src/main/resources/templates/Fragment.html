@@ -97,9 +97,14 @@
 
             </a>
             <div class="dropdown-menu dropdown-menu-right my-2">
+                <form class="form-inline" method="post" action="/changePassword" accept-charset="UTF-8">
+                    <input class="btn btn-dark mx-2 my-1 w-100" type="submit" id="changePasswordLink" name="changePasswordLink" value="Change Password">
+                </form>
+
                 <form class="form-inline" method="post" action="/logout" accept-charset="UTF-8">
                     <input class="btn btn-primary mx-2 my-1 w-100" type="submit" name="Logout" value="Logout">
                 </form>
+                <script th:src="@{/AjaxScript/AjaxChangePassword.js}" async defer></script>
             </div>
         </li>
         <!------------------------------------------------------------------------------------>
@@ -276,6 +281,73 @@
         </div>
     </div>
     <!------------------------------------------------------------------------------------------------------------------------------------>
+    <!---------------------------------------------------Change Password Form------------------------------------------------------------->
+
+    <div class="row" style="height: 4rem;" th:fragment="changePassword">
+        <div class="row w-100">
+            <div class="col col-2">&nbsp;
+
+            </div>
+            <div class="col col-8">
+                <div class="container col col-8">
+                    <form id="changePasswordSubmit" class="mt-2">
+                        <div class="form-group">
+                            <label for="oldPassword">Password</label>
+                            <input type="password" class="form-control" id="oldPassword" placeholder="Enter Old Password..">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Password</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="Enter New Password..">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPasswordConfirm">Password</label>
+                            <input type="password" class="form-control" id="newPasswordConfirm" placeholder="Confirm New Password..">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col col-2">&nbsp;
+
+            </div>
+            <script th:src="@{/AjaxScript/AjaxChangePasswordSubmit.js}" async defer></script>
+        </div>
+    </div>
+    <!---------------------------------------------------Wrong Pasword------------------------------------------------------------->
+
+    <div class="row" style="height: 4rem;" th:fragment="wrongPassword">
+        <div class="row w-100">
+            <div class="col col-2">&nbsp;
+
+            </div>
+            <div class="col col-8">
+                <div class="container col col-8">
+                    <H1 style="text-align: center">Wrong Password</H1>
+                </div>
+            </div>
+            <div class="col col-2">&nbsp;
+
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------------Change Password Success------------------------------------------------------------->
+    <div class="row" style="height: 4rem;" th:fragment="changePasswordSuccess">
+        <div class="row w-100">
+            <div class="col col-2">&nbsp;
+
+            </div>
+            <div class="col col-8">
+                <div class="container col col-8">
+                    <H1 style="text-align: center">Doi Mat Khau Thanh Cong</H1>
+                </div>
+            </div>
+            <div class="col col-2">&nbsp;
+
+            </div>
+        </div>
+    </div>
+
+
 
 
 </main>
