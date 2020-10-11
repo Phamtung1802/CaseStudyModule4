@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "votes")
-public class AppVote {
+@Table(name = "likes")
+public class AppLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +17,4 @@ public class AppVote {
 
     @ManyToOne
     private AppUser appUser;
-
-    private Long value;
 }

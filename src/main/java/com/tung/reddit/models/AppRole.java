@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Table(name = "app_roles")
+@Table(name = "role")
 public class AppRole implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,9 +21,6 @@ public class AppRole implements GrantedAuthority {
 
     @Column(unique = true)
     private String name;
-
-    @OneToMany(targetEntity = AppUser.class,cascade = {CascadeType.ALL})
-    private List<AppUser> appUsers;
 
     @Override
     public String getAuthority() {

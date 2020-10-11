@@ -14,7 +14,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "app_users")
+@Table(name = "user")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,6 @@ public class AppUser {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
     private AppRole role;
 
     private Instant created;

@@ -1,9 +1,9 @@
 package com.tung.reddit.services;
 
-import com.tung.reddit.models.Status;
+import com.tung.reddit.models.AppStatus;
 
 import java.util.Optional;
 
 public interface StatusServiceDUNG {
-    Optional<Status> findByName (String statusName);
+    Optional<AppStatus> findByName (String statusName);
 }

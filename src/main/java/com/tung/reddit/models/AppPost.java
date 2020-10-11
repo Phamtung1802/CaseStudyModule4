@@ -2,47 +2,40 @@ package com.tung.reddit.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.Instant;
+import java.util.Date;
 
-import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
-
-@Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "post")
 public class AppPost {
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column ( name="postId")
-    private Long postId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotBlank(message = "Post Name cannot be empty or Null")
-    @Column ( name="postName")
-    private String postName;
+    private String title;
 
-    @Nullable
-    private String url;
+    private String photoName;
 
-    @Nullable
-    @Lob
-    private String description;
+    @Transient
+    private MultipartFile photo;
 
-    private Integer voteCount = 0;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private AppUser user;
+    private long likeCount;
+    private long commentCount;
+    private long voteCount;
 
     @ManyToOne
-    private Status status;
+    private AppUser appUser;
 
-    private Instant createdDate;
+    @ManyToOne
+    private AppStatus status;
+
+    @Column(name = "date_Upload")
+    private Date dateUpload;
+
 }

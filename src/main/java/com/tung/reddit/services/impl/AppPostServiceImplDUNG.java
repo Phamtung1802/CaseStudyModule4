@@ -2,20 +2,23 @@ package com.tung.reddit.services.impl;
 
 import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.models.Status;
+import com.tung.reddit.models.AppStatus;
 import com.tung.reddit.repository.AppPostRepositoryDUNG;
 import com.tung.reddit.services.AppPostServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
+@Component
 
 public class AppPostServiceImplDUNG implements AppPostServiceDUNG {
 
     @Autowired
     private AppPostRepositoryDUNG appPostRepositoryDUNG;
+
 
     @Override
     public Page<AppPost> getAllPost(Pageable pageable) {
@@ -43,17 +46,17 @@ public class AppPostServiceImplDUNG implements AppPostServiceDUNG {
     }
 
     @Override
-    public Page<AppPost> getAllPostByStatus(Status status, Pageable pageable) {
+    public Page<AppPost> getAllPostByStatus(AppStatus status, Pageable pageable) {
         return appPostRepositoryDUNG.getAllByStatus(status, pageable);
     }
 
     @Override
     public void setStatusForPost(Long statusID, Long postID) {
-        appPostRepositoryDUNG.setStatusForPost(statusID, postID);
+            appPostRepositoryDUNG.setStatusForPost(statusID, postID);
     }
 
     @Override
     public Page<AppPost> findAllPostByUserLiked(Long appUserId, Pageable pageable) {
-        return appPostRepositoryDUNG.findAllPostByUserLiked(appUserId,pageable);
+        return appPostRepositoryDUNG.findAllPostByUserLiked(appUserId, pageable);
     }
 }
