@@ -43,7 +43,7 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public Long sumOfValues(AppPost post) {
-        return null;
+        return voteRepository.sumOfValues(post.getId());
     }
 
 

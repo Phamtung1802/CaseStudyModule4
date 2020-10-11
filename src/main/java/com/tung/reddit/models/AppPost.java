@@ -22,11 +22,56 @@ public class AppPost {
 
     private String photoName;
 
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
+    public AppStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppStatus status) {
+        this.status = status;
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
+    }
+
     @Transient
     private MultipartFile photo;
 
     private long likeCount;
     private long commentCount;
+
+    public void setVoteCount(long voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public long getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(long commentCount) {
+        this.commentCount = commentCount;
+    }
+
     private long voteCount;
 
     @ManyToOne
@@ -38,4 +83,19 @@ public class AppPost {
     @Column(name = "date_Upload")
     private Date dateUpload;
 
+    public MultipartFile getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(MultipartFile photo) {
+        this.photo = photo;
+    }
+
+    public Date getDateUpload() {
+        return dateUpload;
+    }
+
+    public void setDateUpload(Date dateUpload) {
+        this.dateUpload = dateUpload;
+    }
 }
