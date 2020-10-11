@@ -80,13 +80,27 @@ public class IndexController {
         return mov;
     }
 
+    @GetMapping(path="/upgrade")
+    public ModelAndView search(Principal principal) throws IOException {
+        ModelAndView mov=new ModelAndView("redirect:/");
+        AppUser appUser= appUserServiceImpl.findFirstByUsername(principal.getName());
+        AppRole role=new AppRole();
+        role.setId(4L);
+        appUser.setRole(role);
+        appUserServiceImpl.save(appUser);
+        return mov;
+    }
+
+
     @GetMapping(path = "**/changePassword")
+    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN","ROLE_MODERATOR"})
     public ModelAndView changePassword() throws IOException {
         ModelAndView mov=new ModelAndView("Fragment :: changePassword");
         return mov;
     }
 
     @PatchMapping(path = "**/changePassword",consumes = {"multipart/form-data"})
+    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN","ROLE_MODERATOR"})
     public ModelAndView changePasswordSubmit(Principal principal,@RequestPart("oldPassword") String oldPassword,@RequestPart("newPassword") String newPassword) throws IOException {
         ModelAndView mov= new ModelAndView("/index");
         AppUser appUser= appUserServiceImpl.findFirstByUsername(principal.getName());
@@ -101,9 +115,6 @@ public class IndexController {
         }
         return mov;
     }
-
-
-
 
     @PostMapping(path = "/create",consumes = {"application/json", MediaType.APPLICATION_JSON_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUser> createUserPost(@RequestBody AppUser appUser) throws IOException {
@@ -135,7 +146,6 @@ public class IndexController {
         Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
         AppUser appUser=appUserServiceImpl.findFirstByUsername(principal.getName());
         AppPost post=appPostServiceImpl.findByPostID(id);
-
         appComment.setPost(post);
         appComment.setUser(appUser);
         appComment.setCreatedDate(time);

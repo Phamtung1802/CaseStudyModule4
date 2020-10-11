@@ -100,6 +100,10 @@
                 <form class="form-inline" method="post" action="/changePassword" accept-charset="UTF-8">
                     <input class="btn btn-dark mx-2 my-1 w-100" type="submit" id="changePasswordLink" name="changePasswordLink" value="Change Password">
                 </form>
+                <form sec:authorize="hasAnyRole('ROLE_USER')" class="form-inline" method="patch" action="/upgrade" accept-charset="UTF-8">
+                    <input class="btn btn-warning mx-2 my-1 w-100" type="submit" id="upgrade" name="upgrade" value="Upgrade To Premium User">
+                </form>
+
 
                 <form class="form-inline" method="post" action="/logout" accept-charset="UTF-8">
                     <input class="btn btn-primary mx-2 my-1 w-100" type="submit" name="Logout" value="Logout">
@@ -224,6 +228,9 @@
                         <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
                             <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                 <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                 <div class="container">
