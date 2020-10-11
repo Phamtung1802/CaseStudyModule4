@@ -1,4 +1,4 @@
-package com.tung.reddit.controllers.AppUserController;
+package com.tung.reddit.controllers;
 
 import com.tung.reddit.models.AppRole;
 import com.tung.reddit.models.AppUser;

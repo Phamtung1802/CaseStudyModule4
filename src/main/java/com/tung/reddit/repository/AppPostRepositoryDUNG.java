@@ -13,8 +13,11 @@ public interface AppPostRepositoryDUNG extends PagingAndSortingRepository<AppPos
 
     Page<AppPost> getAllByStatus(Status status, Pageable pageable);
 
-    @Query(value = "update app_post p set p.status_id = ?1 where p.id =?2", nativeQuery = true)
+    @Query(value = "update post p set p.status_id = ?1 where p.id = ?2", nativeQuery = true)
     void setStatusForPost(Long statusID, Long postID);
+
+    @Query(value = "select * from post where post.id in (select likes.post_id from likes where likes.app_user_id = ?1)", nativeQuery = true)
+    Page <AppPost> findAllPostByUserLiked(Long appUserId, Pageable pageable);
 
 
 }

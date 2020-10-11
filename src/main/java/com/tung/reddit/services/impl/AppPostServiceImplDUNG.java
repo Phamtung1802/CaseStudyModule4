@@ -44,11 +44,16 @@ public class AppPostServiceImplDUNG implements AppPostServiceDUNG {
 
     @Override
     public Page<AppPost> getAllPostByStatus(Status status, Pageable pageable) {
-        return appPostRepositoryDUNG.getAllByStatus(status,pageable);
+        return appPostRepositoryDUNG.getAllByStatus(status, pageable);
     }
 
     @Override
     public void setStatusForPost(Long statusID, Long postID) {
-            appPostRepositoryDUNG.setStatusForPost(statusID, postID);
+        appPostRepositoryDUNG.setStatusForPost(statusID, postID);
+    }
+
+    @Override
+    public Page<AppPost> findAllPostByUserLiked(Long appUserId, Pageable pageable) {
+        return appPostRepositoryDUNG.findAllPostByUserLiked(appUserId,pageable);
     }
 }

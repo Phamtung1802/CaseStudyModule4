@@ -11,7 +11,9 @@ public interface AppPostServiceDUNG {
     AppPost getPostById(long id);
     AppPost save(AppPost post);
     void remove(AppPost post);
-    Page<AppPost> getAllPostByUser(AppUser user, Pageable pageable);
-    Page<AppPost> getAllPostByStatus(Status status, Pageable pageable);
+    Page<AppPost> getAllPostByUser(AppUser user,Pageable pageable);
+    Page<AppPost> getAllPostByStatus(Status status,Pageable pageable);
     void setStatusForPost(Long statusID,Long postID);
+
+    Page<AppPost> findAllPostByUserLiked(Long appUserId, Pageable pageable);
 }
