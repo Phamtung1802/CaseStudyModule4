@@ -38,27 +38,27 @@ public class HomeControllerDUNG {
         return appUser;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/","/home"})
     public ModelAndView  home() {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
     }
 
-    @GetMapping( value = "/login")
+    @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
     }
 
-    @GetMapping(value = "/create-account")
+    @GetMapping( "/create-account")
     public ModelAndView createUser() {
         ModelAndView modelAndView = new ModelAndView("/account/create");
-        modelAndView.addObject("user", new AppUser());
+        modelAndView.addObject("newUser", new AppUser());
         return modelAndView;
     }
 
     @PostMapping("/create-account")
-    public ModelAndView createAppUser( @ModelAttribute("newUser") AppUser appUser) {
+    public ModelAndView createAppUser( @ModelAttribute("user") AppUser appUser) {
         Instant time=LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).toInstant(ZoneOffset.UTC);
         appUser.setCreated(time);
         appUser.setEnabled(true);

@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import repositories.AppUserRepositoryDUNG;
+import com.tung.reddit.repository.AppUserRepositoryDUNG;
 
 import java.util.ArrayList;
 import java.util.Arrays;

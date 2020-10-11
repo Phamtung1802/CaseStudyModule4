@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping(value ="/user" )
+@RequestMapping("account")
 @CrossOrigin("*")
 public class AppUserControllerDUNG {
 

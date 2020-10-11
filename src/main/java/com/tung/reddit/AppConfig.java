@@ -11,15 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 //@Configuration
 //@EnableJpaRepositories("repositories")
 //@ComponentScan()
-//public class AppConfig extends WebMvcConfigurationSupport {
-//
+public class AppConfig extends AbstractSecurityWebApplicationInitializer  {
+
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry){
 //        registry.addResourceHandler("/**")
 //                .addResourceLocations("classpath:/static/");
 //    }
-//}
-
-public class AppConfig extends AbstractSecurityWebApplicationInitializer {
-
 }
+

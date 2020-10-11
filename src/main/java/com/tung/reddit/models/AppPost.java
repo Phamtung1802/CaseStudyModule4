@@ -41,5 +41,8 @@ public class AppPost {
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private AppUser user;
 
+    @ManyToOne
+    private Status status;
+
     private Instant createdDate;
 }

@@ -1,4 +1,4 @@
-package repositories;
+package com.tung.reddit.repository;
 
 import com.tung.reddit.models.AppRole;
 import org.springframework.data.repository.CrudRepository;

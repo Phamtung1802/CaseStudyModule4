@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping( "admin")
 
 
 public class AppAdminControllerDUNG {
@@ -40,7 +40,7 @@ public class AppAdminControllerDUNG {
 
     @GetMapping("/create")
     public ModelAndView showCreate() {
-        ModelAndView modelAndView = new ModelAndView("/create");
+        ModelAndView modelAndView = new ModelAndView("/account/create");
         modelAndView.addObject("user", new AppUser());
         return modelAndView;
 
@@ -69,7 +69,7 @@ public class AppAdminControllerDUNG {
 
     @GetMapping("/edit")
     public ModelAndView show() {
-        ModelAndView modelAndView = new ModelAndView("account/edit");
+        ModelAndView modelAndView = new ModelAndView("/account/edit");
         modelAndView.addObject("user",getPrincipal());
         return modelAndView;
     }
@@ -82,12 +82,12 @@ public class AppAdminControllerDUNG {
         user.setRole(appRole);
         appUserServiceDUNGImpl.save(user);
         model.addAttribute("user", user);
-        return "redirect:/admin1/app-user";
+        return "redirect:/admin/app-user";
     }
 
     @GetMapping("/app-user/edit/{id}")
     public ModelAndView show(@PathVariable("id") Long id) {
-        ModelAndView modelAndView = new ModelAndView("account/edit");
+        ModelAndView modelAndView = new ModelAndView("/account/edit");
         AppUser appUser = appUserServiceDUNGImpl.getUserById(id);
         modelAndView.addObject("user", appUser);
         return modelAndView;

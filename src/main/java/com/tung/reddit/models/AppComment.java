@@ -3,6 +3,7 @@ package com.tung.reddit.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -30,7 +31,14 @@ public class AppComment {
     @JoinColumn(name = "postId", referencedColumnName = "postId")
     private AppPost post;
     private Instant createdDate;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private AppUser user;
+
+    private Integer voteCount = 0;
+
+    @Nullable
+    private String url;
+
 }
