@@ -280,6 +280,8 @@
                     <div class="form-group">
                         <label for="postContent">Comments</label>
                         <textarea class="form-control" th:id="'commentContent'" rows="3" style="resize:none" required></textarea>
+                        <label for="postContent">IMG</label>
+                        <input type="text" id="commentUrl" class="form-control">
                     </div>
                     <input type="submit" class="btn btn-light" value="Submit">
                     <script th:src="@{/AjaxScript/AjaxComment.js}" async="true" defer="true"></script>

@@ -4,8 +4,11 @@ $('#createNewComment').submit(function()
     console.log('hello');
     event.preventDefault();
     let text=$('#commentContent').val();
+    let url=$('#commentUrl').val();
+
     let json={
-        "text":text
+        "text":text,
+        "url":url
     }
     $.ajax({
         headers: {
