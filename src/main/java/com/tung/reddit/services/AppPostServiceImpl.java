@@ -31,6 +31,11 @@ public class AppPostServiceImpl implements AppPostService{
     public AppPost findByPostID(long id) {
         return appPostRepository.findByPostId(id);
     }
+    @Override
+    public void deleteAppPostByPostId(Long id){
+        appPostRepository.deleteAppPostByPostId(id);
+    }
+
 
 
 }

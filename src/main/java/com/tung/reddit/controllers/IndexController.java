@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import repositories.AppCommentRepository;
@@ -157,13 +158,11 @@ public class IndexController {
     }
 
     @GetMapping(path = "/delete_post/{id}")
-    @Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN","ROLE_MODERATOR"})
+    @Secured({"ROLE_ADMIN","ROLE_MODERATOR"})
+    @Transactional
     public ModelAndView deletePost(@PathVariable long id) throws IOException {
         ModelAndView mov=new ModelAndView("redirect:/");
+        appPostServiceImpl.deleteAppPostByPostId(id);
         return mov;
     }
-
-
-
-
 }

@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface AppPostRepository extends PagingAndSortingRepository<AppPost, Long> {
     public Iterable<AppPost> findAll();
     public Iterable<AppPost> findAllByPostNameContains(String string);
-
+    public void deleteAppPostByPostId(Long id);
     public AppPost findByPostId(Long l);
 }
