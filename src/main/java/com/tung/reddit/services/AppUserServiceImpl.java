@@ -54,10 +54,14 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<AppUser> optionalAppUser = appUserRepository.findByUsername(username);
-        List<AppRole> roles = new ArrayList<>();if (optionalAppUser.isPresent()) {
+        List<AppRole> roles = new ArrayList<>();
+        if (optionalAppUser.isPresent()) {
             AppUser appUser = optionalAppUser.get();
             roles.add(appUser.getRole());
             User user = new User(appUser.getUsername(), appUser.getPassword(), roles);
+            if(appUser.isEnabled()==false){
+                throw new UsernameNotFoundException(MessageFormat.format("Banned User", username));
+            }
             return user;
         } else {
             throw new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", username));
