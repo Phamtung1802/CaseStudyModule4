@@ -2,7 +2,7 @@ package com.tung.reddit.controllers.AppUserController;
 
 import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.services.AppPostServiceImpl;
+import com.tung.reddit.services.AppPostService;
 import com.tung.reddit.services.AppRoleService;
 import com.tung.reddit.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.persistence.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
-import java.net.http.HttpRequest;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -32,7 +31,7 @@ public class AppUserController {
     private AppRoleService appRoleServiceImpl;
 
     @Autowired
-    private AppPostServiceImpl appPostServiceImpl;
+    private AppPostService appPostServiceImpl;
 
 
     @Autowired

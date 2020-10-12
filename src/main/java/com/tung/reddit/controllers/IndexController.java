@@ -39,7 +39,7 @@ public class IndexController {
     private AppUserService appUserServiceImpl;
 
     @Autowired
-    private AppPostServiceImpl appPostServiceImpl;
+    private AppPostService appPostServiceImpl;
 
     @Autowired
     private AppCommentService appCommentServiceImpl;
