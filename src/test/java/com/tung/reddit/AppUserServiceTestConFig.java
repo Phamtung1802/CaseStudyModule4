@@ -1,7 +1,7 @@
 package com.tung.reddit;
 
 import com.tung.reddit.services.AppUserService;
-import com.tung.reddit.services.AppUserServiceImpl;
+import com.tung.reddit.services.impl.AppUserServiceImpl;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
