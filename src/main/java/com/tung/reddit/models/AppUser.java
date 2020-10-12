@@ -14,13 +14,14 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "app_users")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     @NotBlank(message = "Username is required")
+    @Column(unique=true)
     private String username;
 
     @NotBlank(message = "Password is required")
@@ -31,17 +32,10 @@ public class AppUser {
     private String email;
 
     @ManyToOne
+    @JoinColumn(name = "role_id")
     private AppRole role;
 
     private Instant created;
-
-    public Instant getCreated() {
-        return created;
-    }
-
-    public void setCreated(Instant created) {
-        this.created = created;
-    }
 
     private boolean enabled;
 }

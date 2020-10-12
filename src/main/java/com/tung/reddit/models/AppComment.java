@@ -3,11 +3,14 @@ package com.tung.reddit.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.*;;
-import java.util.Date;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
+import java.time.Instant;
 
+import static javax.persistence.FetchType.LAZY;
 
 @Data
 @AllArgsConstructor
@@ -16,17 +19,26 @@ import java.util.Date;
 public class AppComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
-    private Long loveCount;
+    @NotEmpty
+    private String text;
 
-    @ManyToOne
-    private AppUser appUser;
+    @Column(name="img")
+    private String img;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "postId", referencedColumnName = "postId")
     private AppPost post;
+    private Instant createdDate;
 
-    private Date timeComment;
+    @ManyToOne()
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private AppUser user;
+
+    private Integer voteCount = 0;
+
+    @Nullable
+    private String url;
+
 }

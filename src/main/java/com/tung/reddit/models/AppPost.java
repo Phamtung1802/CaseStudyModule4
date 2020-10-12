@@ -2,104 +2,44 @@ package com.tung.reddit.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 
+import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "post")
 public class AppPost {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = IDENTITY)
+    @Column ( name="postId")
+    private Long postId;
 
-    private String title;
+    @NotBlank(message = "Post Name cannot be empty or Null")
+    @Column ( name="postName")
+    private String postName;
 
-    private String photoName;
+    @Nullable
+    private String url;
 
-    public AppUser getAppUser() {
-        return appUser;
-    }
+    @Nullable
+    @Lob
+    private String description;
 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
-    }
+    private Integer voteCount = 0;
 
-    public AppStatus getStatus() {
-        return status;
-    }
+    @ManyToOne()
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private AppUser user;
 
-    public void setStatus(AppStatus status) {
-        this.status = status;
-    }
-
-    public String getPhotoName() {
-        return photoName;
-    }
-
-    public void setPhotoName(String photoName) {
-        this.photoName = photoName;
-    }
-
-    @Transient
-    private MultipartFile photo;
-
-    private long likeCount;
-    private long commentCount;
-
-    public void setLikeCount(long likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public void setVoteCount(long voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public long getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(long commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    private long voteCount;
-
-    @ManyToOne
-    private AppUser appUser;
-
-    @ManyToOne
-    private AppStatus status;
-
-    @Column(name = "date_Upload")
-    private Date dateUpload;
-
-    public MultipartFile getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(MultipartFile photo) {
-        this.photo = photo;
-    }
-
-    public Date getDateUpload() {
-        return dateUpload;
-    }
-
-    public void setDateUpload(Date dateUpload) {
-        this.dateUpload = dateUpload;
-    }
+    private Instant createdDate;
 }

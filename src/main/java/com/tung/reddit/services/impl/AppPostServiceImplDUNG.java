@@ -2,7 +2,6 @@ package com.tung.reddit.services.impl;
 
 import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.models.AppStatus;
 import com.tung.reddit.repository.AppPostRepositoryDUNG;
 import com.tung.reddit.services.AppPostServiceDUNG;
 import org.springframework.beans.factory.annotation.Autowired;

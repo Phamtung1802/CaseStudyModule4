@@ -1,22 +1,31 @@
 package com.tung.reddit.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity
+import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Data
-@Table(name = "votes")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Builder
 public class AppVote {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
+    @GeneratedValue(strategy = IDENTITY)
+    private Long voteId;
+    private AppVoteType voteType;
+    @NotNull
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "postId", referencedColumnName = "postId")
     private AppPost post;
-
-    @ManyToOne
-    private AppUser appUser;
-
-    private Long value;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private AppUser user;
 }

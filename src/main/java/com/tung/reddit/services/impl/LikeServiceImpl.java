@@ -1,6 +1,5 @@
 package com.tung.reddit.services.impl;
 
-import com.tung.reddit.models.AppLike;
 import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppUser;
 import com.tung.reddit.repository.LikeRepository;

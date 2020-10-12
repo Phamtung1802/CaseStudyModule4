@@ -2,7 +2,6 @@ package com.tung.reddit.services;
 
 import com.tung.reddit.models.AppPost;
 import com.tung.reddit.models.AppUser;
-import com.tung.reddit.models.AppLike;
 
 import java.util.List;
 
