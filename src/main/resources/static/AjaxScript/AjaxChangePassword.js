@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+//---------------------------------------Change Password View-------------------------------------------------------------------------------------//
+
+>>>>>>> origin/master
 $(document).ready(function() {
     $('#changePasswordLink').click(function()
     {
@@ -18,4 +23,8 @@ $(document).ready(function() {
         });
         event.preventDefault();
     });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> origin/master
