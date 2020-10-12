@@ -37,6 +37,7 @@ $(document).ready(function() {
             url : 'user/createPost',
             type : "GET",
             success : function (result){
+                console.log("success");
                 $('#mainbody').html(result);
             },
             error: function () {

@@ -25,8 +25,8 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Controller
-@RequestMapping(path = "/user")
-@Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN"})
+@RequestMapping(path = "**/user")
+@Secured({"ROLE_USER","ROLE_PREMIUM_USER","ROLE_ADMIN","ROLE_MODERATOR"})
 public class AppUserController {
     @Autowired
     private AppRoleService appRoleServiceImpl;
@@ -45,6 +45,7 @@ public class AppUserController {
 
     @GetMapping("/createPost")
     public ModelAndView createPost(HttpServletResponse response){
+        System.out.println("creating");
         ModelAndView mov=new ModelAndView("Fragment :: createPost");
         return mov;
     }
