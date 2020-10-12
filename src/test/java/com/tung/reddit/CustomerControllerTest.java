@@ -1,6 +1,5 @@
 package com.tung.reddit;
 
-import com.tung.reddit.controllers.AppUserController.AppUserController;
 import com.tung.reddit.controllers.IndexController;
 import com.tung.reddit.models.AppUser;
 import com.tung.reddit.services.AppUserService;
@@ -16,8 +15,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.Matchers.isA;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 

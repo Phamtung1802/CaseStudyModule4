@@ -52,6 +52,10 @@ public class AppPost {
     private long likeCount;
     private long commentCount;
 
+    public void setLikeCount(long likeCount) {
+        this.likeCount = likeCount;
+    }
+
     public void setVoteCount(long voteCount) {
         this.voteCount = voteCount;
     }

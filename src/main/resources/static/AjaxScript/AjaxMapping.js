@@ -4,6 +4,7 @@ $(document).ready(function() {
         console.log("running");
         event.preventDefault();
         let username=$('#username').val();
+        console.log(username)
         let password=$('#password').val();
         let email=$('#email').val();
         let json = {"username" : username, "password" : password, "email": email};
@@ -13,7 +14,7 @@ $(document).ready(function() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url : 'create',
+            url : 'create-account',
             type : 'post',
             dataType : 'json',
             type : "POST",
