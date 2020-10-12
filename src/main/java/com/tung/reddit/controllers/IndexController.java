@@ -52,6 +52,14 @@ public class IndexController {
         mov.addObject("appPosts",appPosts);
         return mov;
     }
+    @PostMapping("/")
+    public ModelAndView indexPostMethod(){
+        ModelAndView mov=new ModelAndView("index");
+        Iterable<AppPost> appPosts=appPostServiceImpl.findAll();
+        mov.addObject("appPosts",appPosts);
+        return mov;
+    }
+
 
     @GetMapping(path = "/create")
     public ModelAndView createUser() throws IOException {
@@ -61,7 +69,7 @@ public class IndexController {
 
     @GetMapping(path = "/login")
     public ModelAndView loginRedirect() throws IOException {
-        ModelAndView mov=new ModelAndView("/index");
+        ModelAndView mov=new ModelAndView("redirect:/");
         return mov;
     }
 
