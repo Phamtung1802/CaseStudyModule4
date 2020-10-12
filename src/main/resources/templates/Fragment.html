@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<div th:with="someVariable=${someValue}">
+
+    <!------------------------------------------------------------------------------------------------------------------------------------>
+    <head th:fragment="header">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <!-- CSS only -->
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script th:src="@{/AjaxScript/AjaxMapping.js}" async defer></script>
+
+        <style>
+            .glowing-border{
+                box-shadow: 0 0 10px red;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+    <!----------------------------------------------------------------------------------------------------------------------------------->
+
+    <body>
+    <body >
+    <!------------------------------------------------------------------------------------------------------------------------------------>
+
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/"><i class="fa fa-reddit-alien" aria-hidden="true"></i> Reddit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="forum">Forum <span class="sr-only">(current)</span></a>
+                </li>
+                <li sec:authorize="${isAuthenticated()==true}" class="nav-item active">
+                    <a class="nav-link" href="#" id="createPost">Create Post <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="signUp">Sign Up</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <!--------------------------------------------Search----------------------------------->
+            <li class="nav-item" style="list-style-type:none;" >
+                <form class="nav-item form-inline my-2 my-lg-0" id="search">
+                    <input class="form-control mr-sm-2" id="searchBar" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </li>
+            <!------------------------------------------------------------------------------------>
+
+            <!--------------------------------------------Login----------------------------------->
+            <li sec:authorize="${isAuthenticated()==false}" class="nav-item dropdown my-2 my-lg-0 d-none d-md-block mx-1" style="list-style-type:none; height: 38px;">
+                <a class="nav-link dropdown-toggle btn btn-outline-dark my-2 my-sm-0 text-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 37.8px; padding: 0.4rem 1rem;">
+                    Login
+                </a>
+                <div class="dropdown-menu dropdown-menu-right my-2">
+                    <form class="form-inline" method="post" action="/login" accept-charset="UTF-8">
+                        <input class="form-control login col-11 mx-2 my-1" type="text" name="username" placeholder="Username.."><br>
+                        <input class="form-control login col-11 mx-2 my-1" type="password" name="password" placeholder="Password.."><br>
+                        <input class="btn btn-dark mx-2 my-1" type="submit" name="submit" value="Login">
+                        <input class="btn btn-dark mx-1 my-1" type="submit" name="submit" value="Signup">
+                    </form>
+                </div>
+            </li>
+            <!------------------------------------------------------------------------------------>
+            <!--------------------------------------------Logout----------------------------------->
+            <li sec:authorize="${isAuthenticated()==true}"  class="nav-item dropdown my-2 my-lg-0 d-none d-md-block mx-1" style="list-style-type:none; height: 38px;">
+                <a sec:authentication="name" sec:authorize="hasRole('ROLE_PREMIUM_USER')" class="nav-link dropdown-toggle btn btn-warning  my-2 my-sm-0 text-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 37.8px; padding: 0.4rem 1rem;">
+
+                </a>
+                <a sec:authentication="name" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR','ROLE_USER')" class="nav-link dropdown-toggle btn-primary btn my-2 my-sm-0 text-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 37.8px; padding: 0.4rem 1rem;">
+
+                </a>
+                <div class="dropdown-menu dropdown-menu-right my-2">
+                    <form class="form-inline" method="post" action="/changePassword" accept-charset="UTF-8">
+                        <input class="btn btn-dark mx-2 my-1 w-100" type="submit" id="changePasswordLink" name="changePasswordLink" value="Change Password">
+                    </form>
+                    <form sec:authorize="hasAnyRole('ROLE_USER')" class="form-inline" method="patch" action="/upgrade" accept-charset="UTF-8">
+                        <input class="btn btn-warning mx-2 my-1 w-100" type="submit" id="upgrade" name="upgrade" value="Upgrade To Premium User">
+                    </form>
+
+
+                    <form class="form-inline" method="post" action="/logout" accept-charset="UTF-8">
+                        <input class="btn btn-primary mx-2 my-1 w-100" type="submit" name="Logout" value="Logout">
+                    </form>
+                    <script th:src="@{/AjaxScript/AjaxChangePassword.js}" async defer></script>
+                </div>
+            </li>
+            <!------------------------------------------------------------------------------------>
+        </div>
+    </nav>
+    <!------------------------------------------------------------------------------------------------------------------------------------>
+    <main>
+        <!----------------------------------------------Post--------------------------------------------------------------------------->
+        <th:block th:fragment="posts" th:each="post : ${appPosts}">
+            <div class="container" >
+                <div class="row">
+                    <div class="col col-12 my-2">
+                        <th:block th:if="${post.user.role.id}==4">
+                            <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
+                                <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                    <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                </div>
+                                <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                                <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                                </div>
+                                                <div style="padding-left: 1rem; padding-bottom: 0.5rem;"  class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${post.user.role.id}!=4">
+                            <div class="card bg-light text-light border-0" style="padding: 0px;">
+                                <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                    <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                </div>
+                                <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                                <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                                </div>
+                                                <div style="padding-left: 1rem; padding-bottom: 0.5rem;" class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------>
+        <div class="container" th:fragment="createPost">
+            <div class="row">
+                <div class="col col-12">
+                    <br>
+                    <form id="createNewPost">
+                        <div class="form-group">
+                            <label for="postTitle">Post Title</label>
+                            <input type="text" class="form-control" id="postTitle" placeholder="Title..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postContent">Content</label>
+                            <textarea class="form-control" id="postContent" rows="5" style="resize:none" required></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-light" value="Submit">
+                    </form>
+                    <script th:src="@{/AjaxScript/AjaxCreate.js}" async defer></script>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------>
+        <!------------------------------------------------------create user-------------------------------------------------------------------------->
+
+        <div class="row" style="height: 4rem;" th:fragment="createUser">
+            <div class="row w-100">
+                <div class="col col-2">&nbsp;
+
+                </div>
+                <div class="col col-8">
+                    <div class="container col col-8">
+                        <form id="createNewUser" class="mt-2">
+                            <div class="form-group">
+                                <label for="username">User Name</label>
+                                <input type="text" class="form-control" id="username" placeholder="Enter User Name..">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter Password..">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">User Name</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter Email..">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col col-2">&nbsp;
+
+                </div>
+                <script th:src="@{/AjaxScript/AjaxMapping.js}" async defer></script>
+            </div>
+        </div>
+        <!----------------------------------------------Post--------------------------------------------------------------------------->
+        <th:block th:fragment="postdetails" th:object="${post}">
+            <div class="container" >
+                <div class="row">
+                    <div class="col col-12 my-2">
+                        <th:block th:if="${post.user.role.id}==4">
+                            <div class="card bg-light text-light glowing-border border-0" style="padding: 0px;">
+                                <div class="card card-title bg-warning text-dark " style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                    <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                    <button type="button" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                                <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                                </div>
+                                                <div style="padding-left: 1rem; padding-bottom: 0.5rem;"  class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${post.user.role.id}!=4">
+                            <div class="card bg-light text-light border-0" style="padding: 0px;">
+                                <div class="card card-title bg-dark border-dark text-light" style="padding: 1rem; margin-bottom: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                    <a style="color:white;" th:text="${post.postName}" th:href="${post.url}"></a>
+                                </div>
+                                <div class="card card-body bg-light text-dark" style="padding: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col col-12" style="margin: 0px; padding: 0px;">
+                                                <div style="padding: 0.5rem; padding-left: 1rem; font-size:1.25rem;" th:text="${post.description}">
+                                                </div>
+                                                <div style="padding-left: 1rem; padding-bottom: 0.5rem;" class="small" th:text="'Posted by '+ ${post.user.username}+' on '+ ${post.createdDate}">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        <!---------------------------------------------------------Create Comment----------------------------------------------------------->
+        <div class="container my-4" th:fragment="createComment" sec:authorize="${isAuthenticated()==true}">
+            <div class="row">
+                <div class="col col-12" th:object="${post}">
+                    <br>
+                    <form id="createNewComment" method="post" th:action="${post.url}">
+                        <div class="form-group">
+                            <label for="postContent">Comments</label>
+                            <textarea class="form-control" th:id="'commentContent'" rows="3" style="resize:none" required></textarea>
+                            <label for="postContent">IMG</label>
+                            <input type="text" id="commentUrl" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-light" value="Submit">
+                        <script th:src="@{/AjaxScript/AjaxComment.js}" async="true" defer="true"></script>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------>
+        <!---------------------------------------------------Change Password Form------------------------------------------------------------->
+
+        <div class="row" style="height: 4rem;" th:fragment="changePassword">
+            <div class="row w-100">
+                <div class="col col-2">&nbsp;
+
+                </div>
+                <div class="col col-8">
+                    <div class="container col col-8">
+                        <form id="changePasswordSubmit" class="mt-2">
+                            <div class="form-group">
+                                <label for="oldPassword">Password</label>
+                                <input type="password" class="form-control" id="oldPassword" placeholder="Enter Old Password..">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Password</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="Enter New Password..">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPasswordConfirm">Password</label>
+                                <input type="password" class="form-control" id="newPasswordConfirm" placeholder="Confirm New Password..">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col col-2">&nbsp;
+
+                </div>
+                <script th:src="@{/AjaxScript/AjaxChangePasswordSubmit.js}" async defer></script>
+            </div>
+        </div>
+        <!---------------------------------------------------Wrong Pasword------------------------------------------------------------->
+
+        <div class="row" style="height: 4rem;" th:fragment="wrongPassword">
+            <div class="row w-100">
+                <div class="col col-2">&nbsp;
+
+                </div>
+                <div class="col col-8">
+                    <div class="container col col-8">
+                        <H1 style="text-align: center">Wrong Password</H1>
+                    </div>
+                </div>
+                <div class="col col-2">&nbsp;
+
+                </div>
+            </div>
+        </div>
+        <!---------------------------------------------------Change Password Success------------------------------------------------------------->
+        <div class="row" style="height: 4rem;" th:fragment="changePasswordSuccess">
+            <div class="row w-100">
+                <div class="col col-2">&nbsp;
+
+                </div>
+                <div class="col col-8">
+                    <div class="container col col-8">
+                        <H1 style="text-align: center">Doi Mat Khau Thanh Cong</H1>
+                    </div>
+                </div>
+                <div class="col col-2">&nbsp;
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    </body>
+</html>
